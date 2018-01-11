@@ -17,10 +17,6 @@ func (b *balancedSqlExecutor) slave() gorp.SqlExecutor {
 	return b.slaves[id]
 }
 
-func (b *balancedSqlExecutor) Get(i interface{}, keys ...interface{}) (interface{}, error) {
-	return b.slave().Get(i, keys...)
-}
-
 func (b *balancedSqlExecutor) Select(i interface{}, query string, args ...interface{}) ([]interface{}, error) {
 	return b.slave().Select(i, query, args...)
 }
@@ -66,7 +62,6 @@ func (b *balancedSqlExecutor) QueryRow(query string, args ...interface{}) *sql.R
 	}
 	return b.SqlExecutor.QueryRow(query, args...)
 }
-
 
 func BalancedSqlExecutor(master gorp.SqlExecutor, slaves []gorp.SqlExecutor, balancer Balancer) gorp.SqlExecutor {
 	return &balancedSqlExecutor{

@@ -14,13 +14,13 @@ var errReadOnly = fmt.Errorf("readonly")
 func TestBalancedSqlExecutor_Get(t *testing.T) {
 	master := &MockSqlExecutor{
 		GetMock: func(i interface{}, keys ...interface{}) (interface{}, error) {
-			return nil, errReadMaster
+			return nil, nil
 		},
 	}
 	slaves := []gorp.SqlExecutor{
 		&MockSqlExecutor{
 			GetMock: func(i interface{}, keys ...interface{}) (interface{}, error) {
-				return nil, nil
+				return nil, errReadOnly
 			},
 		},
 	}
