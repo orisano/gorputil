@@ -26,7 +26,7 @@ func main() {
 		&gorp.DbMap{Db: slaveDb1, Dialect: gorp.MySQLDialect{}},
 		&gorp.DbMap{Db: slaveDb2, Dialect: gorp.MySQLDialect{}},
 	}
-	db := gorputil.BalancedSqlExecutor(master, slaves, &gorputil.Sequential{})
+	db := gorputil.NewClusterMap(master, slaves, &gorputil.Sequential{})
 
 	db.Exec("insert into users(name, age, weight) values(foo, 25, 58.0)") // master
 	db.Query("select * from users")                                       // slave1
