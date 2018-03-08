@@ -1,4 +1,6 @@
 # gorputil
+[![Build Status](https://travis-ci.org/orisano/gorputil.svg?branch=master)](https://travis-ci.org/orisano/gorputil)
+
 `gopkg.in/gorp.v2` utility.
 
 ## Installation
