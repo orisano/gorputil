@@ -24,7 +24,7 @@ func main() {
 	slaveDb2, _ := sql.Open("mysql", "user:password@tcp(slave2.mysql.example)/dbname")
 
 	master := &gorp.DbMap{Db: masterDb, Dialect: gorp.MySQLDialect{}}
-	slaves := []gorp.DbMap{
+	slaves := []*gorp.DbMap{
 		{Db: slaveDb1, Dialect: gorp.MySQLDialect{}},
 		{Db: slaveDb2, Dialect: gorp.MySQLDialect{}},
 	}
