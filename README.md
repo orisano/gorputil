@@ -1,4 +1,6 @@
 # gorputil
+[![Build Status](https://travis-ci.org/orisano/gorputil.svg?branch=master)](https://travis-ci.org/orisano/gorputil)
+
 `gopkg.in/gorp.v2` utility.
 
 ## Installation
@@ -22,9 +24,9 @@ func main() {
 	slaveDb2, _ := sql.Open("mysql", "user:password@tcp(slave2.mysql.example)/dbname")
 
 	master := &gorp.DbMap{Db: masterDb, Dialect: gorp.MySQLDialect{}}
-	slaves := []gorp.SqlExecutor{
-		&gorp.DbMap{Db: slaveDb1, Dialect: gorp.MySQLDialect{}},
-		&gorp.DbMap{Db: slaveDb2, Dialect: gorp.MySQLDialect{}},
+	slaves := []*gorp.DbMap{
+		{Db: slaveDb1, Dialect: gorp.MySQLDialect{}},
+		{Db: slaveDb2, Dialect: gorp.MySQLDialect{}},
 	}
 	db := gorputil.NewClusterMap(master, slaves, &gorputil.Sequential{})
 
