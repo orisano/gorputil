@@ -1,5 +1,7 @@
 # gorputil
 [![Build Status](https://travis-ci.org/orisano/gorputil.svg?branch=master)](https://travis-ci.org/orisano/gorputil)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7b6fd84c34e72fdd81d4/maintainability)](https://codeclimate.com/github/orisano/gorputil/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7b6fd84c34e72fdd81d4/test_coverage)](https://codeclimate.com/github/orisano/gorputil/test_coverage)
 
 `gopkg.in/gorp.v2` utility.
 
