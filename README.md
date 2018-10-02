@@ -1,4 +1,8 @@
 # gorputil
+[![Build Status](https://travis-ci.org/orisano/gorputil.svg?branch=master)](https://travis-ci.org/orisano/gorputil)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7b6fd84c34e72fdd81d4/maintainability)](https://codeclimate.com/github/orisano/gorputil/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7b6fd84c34e72fdd81d4/test_coverage)](https://codeclimate.com/github/orisano/gorputil/test_coverage)
+
 `gopkg.in/gorp.v2` utility.
 
 ## Installation
@@ -22,11 +26,11 @@ func main() {
 	slaveDb2, _ := sql.Open("mysql", "user:password@tcp(slave2.mysql.example)/dbname")
 
 	master := &gorp.DbMap{Db: masterDb, Dialect: gorp.MySQLDialect{}}
-	slaves := []gorp.SqlExecutor{
-		&gorp.DbMap{Db: slaveDb1, Dialect: gorp.MySQLDialect{}},
-		&gorp.DbMap{Db: slaveDb2, Dialect: gorp.MySQLDialect{}},
+	slaves := []*gorp.DbMap{
+		{Db: slaveDb1, Dialect: gorp.MySQLDialect{}},
+		{Db: slaveDb2, Dialect: gorp.MySQLDialect{}},
 	}
-	db := gorputil.BalancedSqlExecutor(master, slaves, &gorputil.Sequential{})
+	db := gorputil.NewClusterMap(master, slaves, &gorputil.Sequential{})
 
 	db.Exec("insert into users(name, age, weight) values(foo, 25, 58.0)") // master
 	db.Query("select * from users")                                       // slave1

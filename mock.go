@@ -1,8 +1,13 @@
 package gorputil
 
-import "database/sql"
+import (
+	"database/sql"
+	"gopkg.in/gorp.v2"
+	"context"
+)
 
 type MockSqlExecutor struct {
+	WithContextMock     func(ctx context.Context) gorp.SqlExecutor
 	GetMock             func(i interface{}, keys ...interface{}) (interface{}, error)
 	InsertMock          func(list ...interface{}) error
 	UpdateMock          func(list ...interface{}) (int64, error)
@@ -18,6 +23,10 @@ type MockSqlExecutor struct {
 	SelectOneMock       func(holder interface{}, query string, args ...interface{}) error
 	QueryMock           func(query string, args ...interface{}) (*sql.Rows, error)
 	QueryRowMock        func(query string, args ...interface{}) *sql.Row
+}
+
+func (m *MockSqlExecutor) WithContext(ctx context.Context) gorp.SqlExecutor {
+	return m.WithContextMock(ctx)
 }
 
 func (m *MockSqlExecutor) Get(i interface{}, keys ...interface{}) (interface{}, error) {
